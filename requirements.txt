@@ -1,0 +1,6 @@
+fastapi==0.95.0
+gidgethub==5.2.1
+httpx==0.23.3
+
+gunicorn==20.1.0
+uvicorn==0.21.1
