@@ -17,7 +17,7 @@ def test_pull_request_model(action, webhook_payload_path):
     with open(webhook_payload_path) as f:
         j = json.load(f)
 
-    # make json samples are named correctly
+    # make sure json samples are named correctly
     assert action == j["action"]
 
     # parse json data to model

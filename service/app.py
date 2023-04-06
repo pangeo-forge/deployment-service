@@ -67,7 +67,7 @@ async def receive_github_hook(
 async def dispatch_labeled_pull_request_handler(event: GitHubEvent, gh: GitHubAPI, agent: Agent):
     """For a labeled pull request, dispatch the label handler if it exists."""
 
-    pr = PullRequestPayload(**event.data)
-    actionable_labels = [l for l in pr.event_label_names if l in LABEL_HANDLERS]
+    pr_payload = PullRequestPayload(**event.data)
+    actionable_labels = [l for l in pr_payload.event_label_names if l in LABEL_HANDLERS]
     for label in actionable_labels:
-        await LABEL_HANDLERS[label](pr, gh, agent)
+        await LABEL_HANDLERS[label](pr_payload.pull_request, gh, agent)
