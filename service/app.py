@@ -56,7 +56,7 @@ async def receive_github_hook(
         payload_bytes,
         secret=c.github_app.webhook_secret.get_secret_value(),
     )
-    gh = get_authenticated_github_session(event.data["installation"]["id"], c.github_app)
+    gh = await get_authenticated_github_session(event.data["installation"]["id"], c.github_app)
     await event_router.dispatch(event, gh=gh, agent=c.agent)
 
 

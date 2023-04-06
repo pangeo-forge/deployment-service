@@ -22,9 +22,7 @@ class Agent(ABC):
     async def check_output(self, cmd: list[str], pkgs: list[str]) -> str:
         """Invoke the provided `pangeo-forge-runner` `cmd` on the agent, while first installing
         any specified packages, and return `stdout`."""
-        # NOTE: `pkgs` is temporary, and should be removed following resolution of
-        # https://github.com/pangeo-forge/pangeo-forge-runner/issues/27, at which point 
-        # `pangeo-forge-runner` will handle it's own dynamic dependencies.
+        # NOTE: Argument `pkgs` is temporary. See docstring at top of `.reqs` module.
         # FIXME: Instead of returning the full `stdout`, should we parse this at the agent layer
         # and return a structured JSON response conveying the result of the invocation? This will 
         # require coordination with the agent repositories, and highlights the importance of
@@ -53,6 +51,7 @@ class GCPCloudRunAgent:
                 self.service_url,
                 json={
                     "pangeo_forge_runner": {"cmd": cmd},
+                    # NOTE: `install` is temporary. See docstring at top of `.reqs` module.
                     "install": {"pkgs": pkgs, "env": self.env},
                 },
                 headers={
